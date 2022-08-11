@@ -30,11 +30,16 @@ export class LoginUserController {
       })
     }
 
+    if(!user.active){
+      return response.status(400).json({
+        error: 'Usuário inativo!'
+      })
+    }
+
     try {
       const secret = process.env.SECRET
       const token = jwt.sign({
         id: user.id
-
       }, secret,)
 
       response.status(200).json({ msg: "Autenticação realizada com sucesso",token})
