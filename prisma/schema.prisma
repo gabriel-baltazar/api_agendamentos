@@ -12,7 +12,7 @@ datasource db {
 
 model Events {
   id          String    @id     @default(uuid())
-  name        String    @db.VarChar(250)
+  name        String    @db.VarChar(250) @unique
   image       String
   event_date  DateTime
   location    String    @db.VarChar(250)
@@ -20,5 +20,15 @@ model Events {
   phone       Int
   created_at  DateTime  @default(now())
   updated_at  DateTime  @updatedAt
-  user_id     String
+  user_id     String  
+}
+
+model Users {
+  id          String    @id     @default(uuid())
+  name        String    @db.VarChar(250)
+  password    String    @db.VarChar(250)
+  email       String    @db.VarChar(250) @unique
+  active      Boolean?  @default(true)
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
 }
