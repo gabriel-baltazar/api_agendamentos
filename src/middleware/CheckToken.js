@@ -1,4 +1,4 @@
-import  jwt  from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 export function checkToken(request, response, next){
   const authHeader = request.headers.authorization;
@@ -15,6 +15,9 @@ export function checkToken(request, response, next){
 
     next()
   } catch (error) {
-    response.status.json({ msg: 'Token inválido!' })
+    if(error.name === 'TokenExpiredError'){
+      return response.status(401).json({ msg: 'Token expirado!' })
+    }
+    return response.status(401).json({ msg: 'Token inválido!' })
   }
 }

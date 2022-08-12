@@ -8,6 +8,8 @@ import { CreateUserController } from './controllers/CreateUserController';
 import { LoginUserController } from './controllers/LoginUserController';
 import { checkToken } from './middleware/CheckToken';
 import { DeleteUserController } from './controllers/DeleteUserController';
+import multerConfig from './config/multer';
+import multer from 'multer';
 
 const router = Router();
 
@@ -25,7 +27,7 @@ const loginUser = new LoginUserController();
 const deleteUser = new DeleteUserController();
 
 // Events
-router.post('/event', checkToken, createEvent.handle);
+router.post('/event', checkToken, multer(multerConfig).single('image'), createEvent.handle);
 router.put('/event/:id', checkToken, updateEvent.handle);
 router.get('/event/:id', checkToken, findEvent.handle);
 router.get('/event', checkToken, findAllEvent.handle);

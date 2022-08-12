@@ -16,7 +16,7 @@ A api deve ter 7 rotas sendo:
  - [X] CRUD dados usuário
  - [X] CRUD de eventos
  - [X] A rota de Delete deve apenas setar o usuário como desativado, já para eventos, deve deletar todo o eventos e relacionados
- - [ ] O evento muda para ready via update ou se estiver à 48h de acontecer
+ - [X] O evento muda para ready via update ou se estiver à 48h de acontecer
 
 Usuário:
  - [X] Extra: O usuário precisa estar logado para interagir com eventos
@@ -26,7 +26,7 @@ Usuário:
 
 Evento:
  - [X] Extra: O nome do evento deve ser unico
- - [ ] Extra: A imagem pode ser enviada como multipart form data, sendo salva em uma pasta local ( Salve a referencia em id da imagem no postgres como texto, e crie uma collection no Redis com id:image para referenciar a imagem)
+ - [X] Extra: A imagem pode ser enviada como multipart form data, sendo salva em uma pasta local ( Salve a referencia em id da imagem no postgres como texto, e crie uma collection no Redis com id:image para referenciar a imagem)
  - [ ] Extra: Rota que permite filtrar qual é o evento mais próximo de acontecer, ou quais já foram finalizados, ou quais eventos um usuário tem
  - [ ] Extra: Envie um email (simples) para o usuário sobre o evento dele estar pronto para acontecer
 

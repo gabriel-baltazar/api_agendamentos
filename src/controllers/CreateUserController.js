@@ -31,16 +31,25 @@ export class CreateUserController {
     const salt = await bcrypt.genSalt(12)
     const passwordHash = await bcrypt.hash(password,salt)
 
-    // Create user
-    const user = await prismaClient.users.create({
-      data:{
-        name,
-        email,
-        password:passwordHash
-      }
-    })
 
-    return response.json({msg:"Usuário criado com sucesso"});
+    try {
+      // Create user
+      const user = await prismaClient.users.create({
+        data:{
+          name,
+          email,
+          password:passwordHash
+        }
+      })
+      return response.status(201).json({msg:"Usuário criado com sucesso"});
+    } catch (error) {
+      return response.status(400).json({
+        error: 'Erro ao criar usuário'
+      })
+    }
+    
+
+    
 
   }
 }
