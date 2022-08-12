@@ -14,14 +14,14 @@ Requisitos solicitados:
  -> Login de usuário
  -> CRUD dados usuário
  [X] - -> CRUD de eventos
-   * - A rota de Delete deve apenas setar o usuário como desativado, já para eventos, deve deletar todo o eventos e relacionados
+ [X]  * - A rota de Delete deve apenas setar o usuário como desativado, já para eventos, deve deletar todo o eventos e relacionados
    * -  O evento muda para ready via update ou se estiver à 48h de acontecer
 
 Usuário
-- Extra: O usuário precisa estar logado para interagir com eventos
-- Extra: A senha ser salva criptografada 
-- Extra: O login deve retornar um JWT com data de expiração
-- Extra: O email deve ser único
+[X] - Extra: O usuário precisa estar logado para interagir com eventos
+[X] - Extra: A senha ser salva criptografada 
+[X] - Extra: O login deve retornar um JWT com data de expiração
+[X] - Extra: O email deve ser único
 
 Evento
 [X] - Extra: O nome do evento deve ser unico
