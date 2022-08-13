@@ -1,37 +1,40 @@
 import { prismaClient } from "../database/prismaClient";
-
-export class FindEventByFilterController {
+export class FindEventFilterController {
   async handle(request, response) {
-
-    const filter = request.body
-    var filterBy = ''
+    const { filter } = request.body
+    var filterBy
     switch (filter){
       case 'proximo':
-        filterBy = {
+        filterBy = prismaClient.events.findFirst({
           orderBy:{
-            event_date
+            event_date: 'asc'
+          },
+          where:{
+            event_date:{
+              gt: new Date()
+            }
           }
-        }
+        })
         break;
       case 'finalizados':
-        filterBy = {
+        filterBy = prismaClient.events.findMany({
           where: {
             event_date: {
               lt: new Date()
             }
           }
-        }
+        })
         break;
       default:
-        filterBy = {
+        filterBy = prismaClient.events.findMany({
           where:{
-            id:filter
+            user_id:filter
           }
-        }
+        })
         break;
     }
 
-    const event = await prismaClient.events.findMany(filterBy);
+    const event = await filterBy;
 
     return response.json(event);
   }

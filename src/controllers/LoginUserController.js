@@ -40,9 +40,9 @@ export class LoginUserController {
       const secret = process.env.SECRET
       const token = jwt.sign({
         id: user.id
-      }, secret,{expiresIn:600})
+      }, secret,{expiresIn:7200})
 
-      response.status(200).json({ msg: "Autenticação realizada com sucesso",token, validade:"Este token expira em 10 minutos"})
+      response.status(200).json({ msg: "Autenticação realizada com sucesso",token, validade:"Este token expira em 2 horas"})
       
     } catch (error) {
       console.log(error)
