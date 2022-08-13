@@ -11,8 +11,8 @@ export function checkToken(request, response, next){
   try {
     const secret = process.env.SECRET
 
-    jwt.verify(token, secret)
-
+    const decoded = jwt.verify(token, secret)
+    request.usuario = decoded
     next()
   } catch (error) {
     if(error.name === 'TokenExpiredError'){

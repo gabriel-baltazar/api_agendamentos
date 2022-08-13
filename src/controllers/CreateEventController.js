@@ -2,7 +2,7 @@ import { prismaClient } from "../database/prismaClient";
 
 export class CreateEventController {
   async handle(request, response) {
-    const { name, image, event_date, location, phone, user_id } = request.body;
+    const { name, image, event_date, location, phone } = request.body;
     const fileName = request.file.filename;
     const phoneNumber = parseInt(phone);
     const date = new Date();
@@ -10,6 +10,7 @@ export class CreateEventController {
     const diff = dateEvent.getTime() - date.getTime();
     const diffHours = diff / (1000 * 3600);
     const ready = diffHours < 48 ? true : false;
+    const userId = request.usuario
 
     try{
       const event = await prismaClient.events.create({
@@ -20,7 +21,7 @@ export class CreateEventController {
           location,    
           ready: ready,       
           phone: phoneNumber,
-          user_id
+          user_id: userId
         },
       });
       return response.status(201).json({msg: "Evento criado com sucesso", event}); 
@@ -32,8 +33,4 @@ export class CreateEventController {
       })
     }
   }
-}
-
-function verifyDate(eventDate){
-  
 }
