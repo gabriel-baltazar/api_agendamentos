@@ -27,7 +27,7 @@ Usuário:
 Evento:
  - [X] Extra: O nome do evento deve ser unico
  - [X] Extra: A imagem pode ser enviada como multipart form data, sendo salva em uma pasta local ( Salve a referencia em id da imagem no postgres como texto, e crie uma collection no Redis com id:image para referenciar a imagem)
- - [ ] Extra: Rota que permite filtrar qual é o evento mais próximo de acontecer, ou quais já foram finalizados, ou quais eventos um usuário tem
+ - [X] Extra: Rota que permite filtrar qual é o evento mais próximo de acontecer, ou quais já foram finalizados, ou quais eventos um usuário tem
  - [ ] Extra: Envie um email (simples) para o usuário sobre o evento dele estar pronto para acontecer
 
 * - Funcionalidade é tudo que engloba uma funcionalidade da API, por exemplo, a conexão com o banco de dados pode ser uma funcionalidade, ou todo processo de Create funcionando pode ser considerado uma funcionalidade
