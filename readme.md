@@ -174,3 +174,14 @@ Rode as migraçoes do prisma
 cd api_agendamentos
 npx prisma migrate dev
 ```
+
+Inicie o servidor
+
+```bash
+cd api_agendamentos
+npm run start
+```
+
+O servidor estara rodando em seu endereço http://localhost:3000 ou se preferir pode setar uma porta nas variaveis de ambiente 
+exemplo:
+  `PORT=3030`
