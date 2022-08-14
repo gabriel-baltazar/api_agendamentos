@@ -30,7 +30,7 @@ const deleteUser = new DeleteUserController();
 
 // Events
 router.post('/event', checkToken, multer(multerConfig).single('image'), createEvent.handle);
-router.put('/event/:id', checkToken, updateEvent.handle);
+router.put('/event/:id', checkToken, multer(multerConfig).single('image'), updateEvent.handle);
 router.get('/event/:id', checkToken, findEvent.handle);
 router.get('/event', checkToken, findAllEvent.handle);
 router.get('/eventFilter', checkToken, findEventByFilter.handle)

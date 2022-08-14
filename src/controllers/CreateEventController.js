@@ -1,5 +1,6 @@
 import { prismaClient } from "../database/prismaClient";
 import transport from "../config/nodemailer";
+import redisClient from "../config/redisConfig";
 
 export class CreateEventController {
   async handle(request, response) {
@@ -13,14 +14,20 @@ export class CreateEventController {
     const ready = diffHours < 48 ? true : false;
     const userId = request.usuario.id
 
+    const user = await prismaClient.users.findFirst({
+      where:{
+        id:userId
+      }
+    })
+
     //Config send email
     const mailOptions = {
       from: 'event@event.com',
-      to: 'teste@teste.com',
+      to: user.email,
       subject: `Evento confirmado`,
       html: `<h5>Seu evento "${name}", foi confirmado para a data ${dateEvent} </h5>`
     };
-
+    
     try{
       const event = await prismaClient.events.create({
         data: {
@@ -33,6 +40,7 @@ export class CreateEventController {
           user_id: userId
         },
       });
+      await redisClient.set(event.id,event.image)
       if(ready){
         transport.sendMail(mailOptions,function(error, info){
           if (error) {
