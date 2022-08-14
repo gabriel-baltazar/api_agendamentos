@@ -1,16 +1,33 @@
 
+# API de agendamentos
+
+A api foi criada com o intuito de desenvolver e estudar as seguintes tecnologias:
+ - Node.JS
+ - Docker compose
+ - Redis
+ - Postgres
+
+
+
+
+## Autores
+
+- [Gabriel Baltazar](https://www.github.com/gabriel-baltazar)
+
+
 ## Documentação da API
-`Todas as rodas event são necessario estar logado e passar o bearer token`
+`Todas as rotas event são necessario estar logado e passar o bearer token`
+`Para o teste de envio de email foi utilizado o mailtrap portanto é necessario configurar as variaveis de ambiente`
 
 #### Retorna todos os eventos
 
 ```http
-  GET /event
+GET /event
 ```
 #### Retorna um evento
 
 ```http
-  GET /event/${id}
+GET /event/${id}
 ```
 
 | Parâmetro   | Tipo       | Descrição                                   |
@@ -23,7 +40,7 @@
  - `id_user` - Retorna todos eventos criados pelo usuario
 
 ```http
-  GET /eventFilter
+GET /eventFilter
 ```
 
 | Parâmetro   | Tipo       | Descrição                                   |
@@ -33,7 +50,7 @@
 #### Cria um novo evento
 
 ```http
-  POST /event
+POST /event
 ```
 
 | Parâmetro   | Tipo       | Descrição                                   |
@@ -48,7 +65,7 @@
 #### Atualiza dados de um evento
 
 ```http
-  PUT /event/${id}
+PUT /event/${id}
 ```
 
 | Parâmetro   | Tipo       | Descrição                                   |
@@ -65,7 +82,7 @@
 #### Exclui o evento
 
 ```http
-  DELETE /event/${id}
+DELETE /event/${id}
 ```
 
 | Parâmetro   | Tipo       | Descrição                                   |
@@ -75,7 +92,7 @@
 #### Criar um usuário
 
 ```http
-  POST /auth/register
+POST /auth/register
 ```
 
 | Parâmetro   | Tipo       | Descrição                                   |
@@ -88,7 +105,7 @@
 #### Loga um usuário
 
 ```http
-  POST /auth/login
+POST /auth/login
 ```
 
 | Parâmetro   | Tipo       | Descrição                                   |
@@ -98,7 +115,7 @@
 
 #### Desabilita um usuário
 ```http
-  DELETE /auth/disable/${id}
+DELETE /auth/disable/${id}
 ```
 
 | Parâmetro   | Tipo       | Descrição                                   |
@@ -106,3 +123,54 @@
 | `id`      | `string` |Id do usuário |
 | `email`      | `string` |Email do usuário |
 
+## Variáveis de Ambiente
+
+Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de ambiente no seu .env
+
+`DATABASE_URL`
+
+`SECRET`
+
+`MAILTRAP_USER`
+
+`MAILTRAP_PASS`
+
+`REDIS_PASS`
+
+
+Segue .env e config usado para testes em ambiente local
+
+``` 
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/agendamento?schema=public"
+SECRET=ASBAIUSAHSU9NIONAJNISBQ9AOISNIOIYBSILISO
+
+MAILTRAP_USER=338ad51549c2b8 (Necessario gerar suas proprias credenciais)
+MAILTRAP_PASS=b0a4fbd48decee (Necessario gerar suas proprias credenciais)
+REDIS_PASS=eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+```
+
+
+## Instalação
+
+Clone o repositorio
+```bash
+git clone <link-repositorio>
+```
+
+Instale todas as dependencias do projeto
+```bash
+cd api_agendamentos
+npm install
+```
+
+Certifique-se de que ja possui docker instaldo em sua maquina e que esta operando
+```bash
+cd docker
+docker compose up -d
+```
+
+Rode as migraçoes do prisma
+```bash
+cd api_agendamentos
+npx prisma migrate dev
+```
