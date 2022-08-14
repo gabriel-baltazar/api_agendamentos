@@ -1,33 +1,108 @@
-Seu desafio será uma API para criação de agendamentos em Nodejs utilizando express.
-Banco de dados: Postgres
-ORM: Prisma (recomendado, não obrigatório)
 
-Requisitos solicitados:
-- Seu projeto precisa estar no github
-- Pelo menos 2 branches ( uma dev e a master )
-- Cada funcionalidade deve estar em um commit*
-- Você deve seguir a padronização de conventional commits
-- Tentar criar uma estrutura de pastas que faça sentido caso você precise implementar mudanças/atualizações, e para dividir as funcionalidades
-- Utilizar código simples, mas descritivo, colocando a melhor nomenclatura de variáveis, funções e etc
+## Documentação da API
+`Todas as rodas event são necessario estar logado e passar o bearer token`
 
-A api deve ter 7 rotas sendo:
- - [X] Cadastro de usuário
- - [X] Login de usuário
- - [X] CRUD dados usuário
- - [X] CRUD de eventos
- - [X] A rota de Delete deve apenas setar o usuário como desativado, já para eventos, deve deletar todo o eventos e relacionados
- - [X] O evento muda para ready via update ou se estiver à 48h de acontecer
+#### Retorna todos os eventos
 
-Usuário:
- - [X] Extra: O usuário precisa estar logado para interagir com eventos
- - [X] Extra: A senha ser salva criptografada 
- - [X] Extra: O login deve retornar um JWT com data de expiração
- - [X] Extra: O email deve ser único
+```http
+  GET /event
+```
+#### Retorna um evento
 
-Evento:
- - [X] Extra: O nome do evento deve ser unico
- - [X] Extra: A imagem pode ser enviada como multipart form data, sendo salva em uma pasta local ( Salve a referencia em id da imagem no postgres como texto, e crie uma collection no Redis com id:image para referenciar a imagem)
- - [X] Extra: Rota que permite filtrar qual é o evento mais próximo de acontecer, ou quais já foram finalizados, ou quais eventos um usuário tem
- - [X] Extra: Envie um email (simples) para o usuário sobre o evento dele estar pronto para acontecer
+```http
+  GET /event/${id}
+```
 
-* - Funcionalidade é tudo que engloba uma funcionalidade da API, por exemplo, a conexão com o banco de dados pode ser uma funcionalidade, ou todo processo de Create funcionando pode ser considerado uma funcionalidade
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `id`      | `string` | O ID do evento que você quer |
+
+##### Retorno de acordo com o filtro escolhido
+ - `proximo` - Retorna o proximo evento
+ - `finalizados` - Retorna eventos ja finalizados
+ - `id_user` - Retorna todos eventos criados pelo usuario
+
+```http
+  GET /eventFilter
+```
+
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `filter`      | `string` | filtro  |
+
+#### Cria um novo evento
+
+```http
+  POST /event
+```
+
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `name`      | `string` |Nome do evento |
+| `image`     | `file`   |Banner do evento |
+| `event_date`| `datetime` |Data do evento |
+| `location`  | `string` |Localização do evento |
+| `phone`     | `int` |Telefone do evento |
+
+
+#### Atualiza dados de um evento
+
+```http
+  PUT /event/${id}
+```
+
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `id`      | `string` |Id do evento |
+| `name`      | `string` |Nome do evento |
+| `image`     | `file`   |Banner do evento |
+| `event_date`| `datetime` |Data do evento |
+| `location`  | `string` |Localização do evento |
+| `phone`     | `int` |Telefone do evento |
+| `ready`     | `boolean` |Status do evento |
+
+
+#### Exclui o evento
+
+```http
+  DELETE /event/${id}
+```
+
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `id`      | `string` |Id do evento |
+
+#### Criar um usuário
+
+```http
+  POST /auth/register
+```
+
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `name`      | `string` |Nome do usuário |
+| `email`      | `string` |Email do usuário |
+| `password`      | `string` |Senha do usuário |
+| `confirmPassword`      | `string` |Confirmação da senha do usuário |
+
+#### Loga um usuário
+
+```http
+  POST /auth/login
+```
+
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `email`      | `string` |Email do usuário |
+| `password`      | `string` |Senha do usuário |
+
+#### Desabilita um usuário
+```http
+  DELETE /auth/disable/${id}
+```
+
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `id`      | `string` |Id do usuário |
+| `email`      | `string` |Email do usuário |
+
