@@ -179,9 +179,10 @@ Inicie o servidor
 
 ```bash
 cd api_agendamentos
-npm run start
+npm run dev
 ```
 
 O servidor estara rodando em seu endereço http://localhost:3000 ou se preferir pode setar uma porta nas variaveis de ambiente 
+
 exemplo:
   `PORT=3030`
